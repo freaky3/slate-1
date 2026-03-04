@@ -37,6 +37,7 @@ Parameter | Type | Description
 --------- | ------- | -----------
 document_id | integer | Document id.
 document_type | integer | Document type id.
+document_number | string | Document number.
 customer_ref | string | Customer reference from document.
 customer_name | string | Customer name from document.
 document_date | date | Document date (`YYYY-MM-DD`).
@@ -84,6 +85,7 @@ curl "https://api.onlinefact.be/payments/?limit=2&page=1" \
          "321":{
             "document_id":321,
             "document_type":3,
+            "document_number":"2026/101",
             "customer_ref":"C0001",
             "customer_name":"Demo Customer",
             "document_date":"2026-03-04"
@@ -91,6 +93,7 @@ curl "https://api.onlinefact.be/payments/?limit=2&page=1" \
          "322":{
             "document_id":322,
             "document_type":3,
+            "document_number":"2026/102",
             "customer_ref":"C0001",
             "customer_name":"Demo Customer",
             "document_date":"2026-03-04"
@@ -109,6 +112,7 @@ curl "https://api.onlinefact.be/payments/?limit=2&page=1" \
          "410":{
             "document_id":410,
             "document_type":3,
+            "document_number":"2026/210",
             "customer_ref":"C0101",
             "customer_name":"Example NV",
             "document_date":"2026-03-04"
@@ -175,6 +179,7 @@ curl "https://api.onlinefact.be/payments/245/" \
       "321":{
          "document_id":321,
          "document_type":3,
+         "document_number":"2026/101",
          "customer_ref":"C0001",
          "customer_name":"Demo Customer",
          "document_date":"2026-03-04"
@@ -182,6 +187,7 @@ curl "https://api.onlinefact.be/payments/245/" \
       "322":{
          "document_id":322,
          "document_type":3,
+         "document_number":"2026/102",
          "customer_ref":"C0001",
          "customer_name":"Demo Customer",
          "document_date":"2026-03-04"
@@ -214,8 +220,7 @@ $data_string = '{
    "type":2,
    "amount":"34.60",
    "date":"2026-03-04",
-   "comment":"Ticket 2026/24",
-   "document_ids":[322,330]
+   "comment":"Ticket 2026/24"
 }'; // JSON String
 
 $ch = curl_init('https://api.onlinefact.be/payments/');
@@ -242,8 +247,7 @@ curl "https://api.onlinefact.be/payments/" \
       "type":2,
       "amount":"34.60",
       "date":"2026-03-04",
-      "comment":"Ticket 2026/24",
-      "document_ids":[322,330]
+      "comment":"Ticket 2026/24"
    }'
 ```
 
@@ -262,6 +266,7 @@ curl "https://api.onlinefact.be/payments/" \
       "321":{
          "document_id":321,
          "document_type":3,
+         "document_number":"2026/101",
          "customer_ref":"C0001",
          "customer_name":"Demo Customer",
          "document_date":"2026-03-04"
@@ -269,6 +274,7 @@ curl "https://api.onlinefact.be/payments/" \
       "322":{
          "document_id":322,
          "document_type":3,
+         "document_number":"2026/102",
          "customer_ref":"C0001",
          "customer_name":"Demo Customer",
          "document_date":"2026-03-04"
@@ -276,6 +282,7 @@ curl "https://api.onlinefact.be/payments/" \
       "330":{
          "document_id":330,
          "document_type":2,
+         "document_number":"2026/330",
          "customer_ref":"REG",
          "customer_name":"Cash Register",
          "document_date":"2026-03-04"
@@ -297,13 +304,11 @@ Parameter | Required | Description
 document_id | yes | main document where payment is created on.
 type | yes | payment method id.
 amount | yes | payment amount.
-date | yes | payment date (`YYYY-MM-DD`).
+date | no | payment date (`YYYY-MM-DD`). Default is current date.
 comment | no | custom comment.
-document_ids | no | extra linked document ids.
 
 <aside class="notice">
-`document_ids` is optional input for linking to extra documents.  
-Response always returns the linked documents in `documents`.
+Response returns linked documents in `documents`.
 </aside>
 
 ## Delete a Payment
