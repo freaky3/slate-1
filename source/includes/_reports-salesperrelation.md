@@ -99,7 +99,7 @@ This endpoint retrieves the total products sold in a period to a specific relati
 
 ### HTTPS Request
 
-`GET https://api.onlinefact.be/reports/saleperrelation/`
+`GET https://api.onlinefact.be/reports/salesperrelation/`
 
 ### Query Parameters
 
