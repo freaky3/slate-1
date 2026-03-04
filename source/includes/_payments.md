@@ -8,7 +8,6 @@ method | string | Name of payment method.
 amount | decimal | Payment amount.
 date | date | Date of payment (`YYYY-MM-DD`).
 comment | string | Comment of payment.
-zreport_id | integer | Z-report id when linked (`0` when not linked). `[read-only]`
 documents | object | Linked documents for this payment. Key is the document id.
 
 **Payments - types**
@@ -49,7 +48,7 @@ document_date | date | Document date (`YYYY-MM-DD`).
 $api_key = "api_key_here";
 $api_secret = "api_secret_here";
 
-$ch = curl_init('https://api.onlinefact.be/payments/?limit=2&page=1');
+$ch = curl_init('https://api.onlinefact.be/payments/?limit=2&page=1&order_by=date&order_dir=desc&type=2');
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_USERPWD, $api_key.":".$api_secret);
@@ -63,7 +62,7 @@ print_r($result);
 ```
 
 ```shell
-curl "https://api.onlinefact.be/payments/?limit=2&page=1" \
+curl "https://api.onlinefact.be/payments/?limit=2&page=1&order_by=date&order_dir=desc&type=2" \
   -X GET \
   -u "api_key_here:api_secret_here" \
   -H "Content-Type: application/json" \
@@ -80,7 +79,6 @@ curl "https://api.onlinefact.be/payments/?limit=2&page=1" \
       "amount":"34.60",
       "date":"2026-03-04",
       "comment":"Ticket 2026/24",
-      "zreport_id":"0",
       "documents":{
          "321":{
             "document_id":321,
@@ -107,7 +105,6 @@ curl "https://api.onlinefact.be/payments/?limit=2&page=1" \
       "amount":"120.00",
       "date":"2026-03-04",
       "comment":"Invoice 2026/101",
-      "zreport_id":"0",
       "documents":{
          "410":{
             "document_id":410,
@@ -135,6 +132,12 @@ Parameter | Default | Description
 limit | 100 | limit results (max 1000).
 page | 1 | page number of result.
 document_id | | only payments linked to this document id.
+type | | only payments with this payment type id.
+date | | only payments on this date (`YYYY-MM-DD`).
+min_date | | minimum payment date (`YYYY-MM-DD`) when `date` is not set.
+max_date | | maximum payment date (`YYYY-MM-DD`) when `date` is not set.
+order_by | payment_id | sort by `payment_id`, `date`, `type` or `amount`.
+order_dir | ASC | sort direction `ASC` or `DESC`.
 
 ## Get a Specific Payment
 
@@ -174,7 +177,6 @@ curl "https://api.onlinefact.be/payments/245/" \
    "amount":"34.60",
    "date":"2026-03-04",
    "comment":"Ticket 2026/24",
-   "zreport_id":"0",
    "documents":{
       "321":{
          "document_id":321,
@@ -261,7 +263,6 @@ curl "https://api.onlinefact.be/payments/" \
    "amount":"34.60",
    "date":"2026-03-04",
    "comment":"Ticket 2026/24",
-   "zreport_id":"0",
    "documents":{
       "321":{
          "document_id":321,
