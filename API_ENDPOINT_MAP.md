@@ -44,6 +44,11 @@ Doel: centrale referentie om API-implementatie en Slate-documentatie synchroon t
   - `GET /documents/<ID>`
   - `POST /documents/`
   - `PUT /documents/<ID>`
+- `payments`
+  - `GET /payments/`
+  - `GET /payments/<ID>`
+  - `POST /payments/`
+  - `DELETE /payments/<ID>`
 - `reports`
   - `GET /reports/documents/`
   - `GET /reports/saletotals/`
@@ -55,7 +60,7 @@ Doel: centrale referentie om API-implementatie en Slate-documentatie synchroon t
 Deze bestaan in code en moeten expliciet gedocumenteerd of bewust intern gehouden worden:
 
 - `api2/info.php`
-- `api2/payments.php`
+- `api2/payments.php` (`GET`, `POST`, `PUT`=not supported, `DELETE`)
 - `api2/dopayment.php`
 - `api2/dopayments/*.php`
 

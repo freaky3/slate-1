@@ -15,6 +15,7 @@ includes:
   - customers
   - vouchers
   - documents
+  - payments
   - reports
   - reports-saletotals
   - reports-salesperproduct
