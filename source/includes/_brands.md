@@ -42,12 +42,12 @@ curl "https://api.onlinefact.be/brands/" \
    {
       "brand_id":"3",
       "name":"Coca Cola",
-      "datemodified":"2022-10-25 11:47:14"
+      "datemodified":"2022-10-25 11:47:15"
    },
    {
       "brand_id":"4",
       "name":"Levis",
-      "datemodified":"2022-10-25 11:47:14"
+      "datemodified":"2022-10-25 11:47:15"
    }
 ]
 ```
