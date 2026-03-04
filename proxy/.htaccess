@@ -1,0 +1,10 @@
+Options -MultiViews
+RewriteEngine On
+
+# Ensure a canonical trailing slash for the proxy base path.
+RewriteCond %{REQUEST_URI} /proxy$ [NC]
+RewriteRule ^$ /proxy/ [R=301,L]
+
+# Let the proxy script handle all requests under /proxy/.
+RewriteRule ^index\.php$ - [L]
+RewriteRule ^.*$ index.php [QSA,L]
