@@ -380,6 +380,26 @@
               </ul>
           </li>
           <li>
+            <a href="#seasons" class="toc-h1 toc-link" data-title="Seasons">Seasons</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-all-seasons" class="toc-h2 toc-link" data-title="Get All Seasons">Get All Seasons</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-specific-season" class="toc-h2 toc-link" data-title="Get a Specific Season">Get a Specific Season</a>
+                  </li>
+                  <li>
+                    <a href="#add-a-season" class="toc-h2 toc-link" data-title="Add a Season">Add a Season</a>
+                  </li>
+                  <li>
+                    <a href="#update-a-season" class="toc-h2 toc-link" data-title="Update a Season">Update a Season</a>
+                  </li>
+                  <li>
+                    <a href="#delete-a-season" class="toc-h2 toc-link" data-title="Delete a Season">Delete a Season</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#customers" class="toc-h1 toc-link" data-title="Customers">Customers</a>
               <ul class="toc-list-h2">
                   <li>
@@ -603,6 +623,11 @@ When you create a new API key and secret you have to write down the API secret b
 <td>brand_id</td>
 <td>integer</td>
 <td>brand ID</td>
+</tr>
+<tr>
+<td>season_id</td>
+<td>integer</td>
+<td>linked season ID, <code>0</code> if none <code>[read-only]</code></td>
 </tr>
 <tr>
 <td>webshop</td>
@@ -2238,6 +2263,263 @@ When you create a new API key and secret you have to write down the API secret b
 <tr>
 <td>ID</td>
 <td>The ID of the brand to delete</td>
+</tr>
+</tbody></table>
+<h1 id='seasons'>Seasons</h1>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>season_id</td>
+<td>integer</td>
+<td>Unique identifier for the resource. <code>[read-only]</code></td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of season.</td>
+</tr>
+<tr>
+<td>datemodified</td>
+<td>date-time</td>
+<td>date and time of last modification <code>[read-only]</code></td>
+</tr>
+</tbody></table>
+<h2 id='get-all-seasons'>Get All Seasons</h2><div class="highlight"><pre class="highlight php tab-php"><code>
+<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s1">'https://api.onlinefact.be/seasons/'</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_CUSTOMREQUEST</span><span class="p">,</span> <span class="s2">"GET"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_USERPWD</span><span class="p">,</span> <span class="s2">"api_key_here:api_secret_here"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_HTTPAUTH</span><span class="p">,</span> <span class="no">CURLAUTH_BASIC</span><span class="p">);</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+
+<span class="nv">$result</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$response</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.onlinefact.be/seasons/"</span> <span class="se">\</span>
+  <span class="nt">-X</span> GET <span class="se">\</span>
+  <span class="nt">-u</span> <span class="s2">"api_key_here:api_secret_here"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"season_id"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Summer"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"datemodified"</span><span class="p">:</span><span class="s2">"2022-10-25 11:47:14"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"season_id"</span><span class="p">:</span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Winter"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"datemodified"</span><span class="p">:</span><span class="s2">"2022-10-25 11:47:15"</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves all seasons.</p>
+<h3 id='https-request'>HTTPS Request</h3>
+<p><code>GET https://api.onlinefact.be/seasons/</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>limit</td>
+<td>100</td>
+<td>limit results (max 1000).</td>
+</tr>
+<tr>
+<td>page</td>
+<td>1</td>
+<td>page number of result.</td>
+</tr>
+</tbody></table>
+<h2 id='get-a-specific-season'>Get a Specific Season</h2><div class="highlight"><pre class="highlight php tab-php"><code>
+<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s1">'https://api.onlinefact.be/seasons/2/'</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_CUSTOMREQUEST</span><span class="p">,</span> <span class="s2">"GET"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_USERPWD</span><span class="p">,</span> <span class="s2">"api_key_here:api_secret_here"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_HTTPAUTH</span><span class="p">,</span> <span class="no">CURLAUTH_BASIC</span><span class="p">);</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+
+<span class="nv">$result</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$response</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.onlinefact.be/seasons/2/"</span> <span class="se">\</span>
+  <span class="nt">-X</span> GET <span class="se">\</span>
+  <span class="nt">-u</span> <span class="s2">"api_key_here:api_secret_here"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"season_id"</span><span class="p">:</span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Winter"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"datemodified"</span><span class="p">:</span><span class="s2">"2022-10-25 11:47:14"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves a specific season.</p>
+<h3 id='https-request-2'>HTTPS Request</h3>
+<p><code>GET https://api.onlinefact.be/seasons/&lt;ID&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the season to retrieve</td>
+</tr>
+</tbody></table>
+<h2 id='add-a-season'>Add a Season</h2><div class="highlight"><pre class="highlight php tab-php"><code>
+<span class="nv">$data_string</span> <span class="o">=</span> <span class="s1">'{
+                  "name":"Spring"
+                }'</span><span class="p">;</span> <span class="c1">//JSON String</span>
+
+<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://api.onlinefact.be/seasons/"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_CUSTOMREQUEST</span><span class="p">,</span> <span class="s2">"POST"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nv">$data_string</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_USERPWD</span><span class="p">,</span> <span class="s2">"api_key_here:api_secret_here"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_HTTPAUTH</span><span class="p">,</span> <span class="no">CURLAUTH_BASIC</span><span class="p">);</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+
+<span class="nv">$result</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$response</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.onlinefact.be/seasons/"</span> <span class="se">\</span>
+  <span class="nt">-X</span> POST <span class="se">\</span>
+  <span class="nt">-u</span> <span class="s2">"api_key_here:api_secret_here"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+        "name":"Spring"
+      }'</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"season_id"</span><span class="p">:</span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Spring"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"datemodified"</span><span class="p">:</span><span class="s2">"2022-10-25 11:47:14"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint adds a season.</p>
+<h3 id='https-request-3'>HTTPS Request</h3>
+<p><code>POST https://api.onlinefact.be/seasons/</code></p>
+<h3 id='parameters'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>name of the season</td>
+</tr>
+</tbody></table>
+<h2 id='update-a-season'>Update a Season</h2><div class="highlight"><pre class="highlight php tab-php"><code>
+<span class="nv">$data_string</span> <span class="o">=</span> <span class="s1">'{
+                  "name":"Autumn"
+                }'</span><span class="p">;</span> <span class="c1">//JSON String</span>
+
+<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://api.onlinefact.be/seasons/3/"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_CUSTOMREQUEST</span><span class="p">,</span> <span class="s2">"PUT"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nv">$data_string</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_USERPWD</span><span class="p">,</span> <span class="s2">"api_key_here:api_secret_here"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_HTTPAUTH</span><span class="p">,</span> <span class="no">CURLAUTH_BASIC</span><span class="p">);</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+
+<span class="nv">$result</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$response</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.onlinefact.be/seasons/3/"</span> <span class="se">\</span>
+  <span class="nt">-X</span> PUT <span class="se">\</span>
+  <span class="nt">-u</span> <span class="s2">"api_key_here:api_secret_here"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+        "name":"Autumn"
+      }'</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"season_id"</span><span class="p">:</span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Autumn"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"datemodified"</span><span class="p">:</span><span class="s2">"2022-10-25 11:47:14"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint updates a specific season.</p>
+<h3 id='https-request-4'>HTTPS Request</h3>
+<p><code>PUT https://api.onlinefact.be/seasons/&lt;ID&gt;</code></p>
+<h3 id='url-parameters-2'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the season to update</td>
+</tr>
+</tbody></table>
+<h2 id='delete-a-season'>Delete a Season</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://api.onlinefact.be/seasons/3/"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_CUSTOMREQUEST</span><span class="p">,</span> <span class="s2">"DELETE"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_USERPWD</span><span class="p">,</span> <span class="s2">"api_key_here:api_secret_here"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_HTTPAUTH</span><span class="p">,</span> <span class="no">CURLAUTH_BASIC</span><span class="p">);</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+
+<span class="nv">$result</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$response</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.onlinefact.be/seasons/3/"</span> <span class="se">\</span>
+  <span class="nt">-X</span> DELETE <span class="se">\</span>
+  <span class="nt">-u</span> <span class="s2">"api_key_here:api_secret_here"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"season_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint deletes a specific season.</p>
+<h3 id='https-request-5'>HTTPS Request</h3>
+<p><code>DELETE https://api.onlinefact.be/seasons/&lt;ID&gt;</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the season to delete</td>
 </tr>
 </tbody></table>
 <h1 id='customers'>Customers</h1>
