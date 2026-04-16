@@ -12,6 +12,7 @@ includes:
   - products
   - categories
   - brands
+  - seasons
   - customers
   - vouchers
   - documents

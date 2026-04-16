@@ -19,6 +19,7 @@ capacity | decimal | capacity value of the product
 capacity_unit | string | unit of capacity value (KG,g,ml,L,oz,lb)
 categorie_id | integer | primary category ID
 brand_id | integer | brand ID
+season_id | integer | linked season ID, `0` if none `[read-only]`
 webshop | boolean | may this product be visible on webshop
 dropship | boolean | webshop has always stock of this product
 endoflife | boolean | webshop can max sell stock amount, when stock = 0 the product will go offline
